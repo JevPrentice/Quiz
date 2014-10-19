@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title">Jevs Quiz</string>
+    <string name="app_name">Jevs Quiz</string>
+    <string name="history">History</string>
+    <string name="maths">Maths</string>
+
+    <string name="maths_question_title">What is the result of the following calculation?</string>
+    <string name="numeric">Numeric Question</string>
+    <string name="maths_answer_text">Check</string>    
+</resources>
