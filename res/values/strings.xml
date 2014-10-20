@@ -5,8 +5,13 @@
     <string name="app_name">Jevs Quiz</string>
     <string name="history">History</string>
     <string name="maths">Maths</string>
-
     <string name="maths_question_title">What is the result of the following calculation?</string>
     <string name="numeric">Numeric Question</string>
-    <string name="maths_answer_text">Check</string>    
+    <string name="maths_answer_text">Check</string>
+    <string name="hello">MultiChoiceQuestionsActivity!</string>
+    <string name="submit">Submit</string>
+    <string name="overall_summary">Summary</string>
+    <string name="math_summary">Math Summary</string>
+    <string name="history_summary">History Summary</string>
+
 </resources>

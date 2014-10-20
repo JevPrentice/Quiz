@@ -1,6 +1,7 @@
 package za.co.cti;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,13 +41,17 @@ public class MathsQuestionsActivity extends Activity implements OnClickListener 
 		answerButton.setOnClickListener(this);
 		noAnswered = 0;
 		noCorrect = 0;
-		generateSummary();
+		displaySummary();
 		generateQuestion();
 	}
 
-	private void generateSummary() {
-		summary.setText(noCorrect + " answers out of " + noAnswered
-				+ " attempted of " + noQuestions + " questions");
+	private String getSummary() {
+		return noCorrect + " answers out of " + noAnswered + " attempted of "
+				+ noQuestions + " questions";
+	}
+
+	private void displaySummary() {
+		summary.setText(getSummary());
 	}
 
 	private void generateQuestion() {
@@ -90,13 +95,28 @@ public class MathsQuestionsActivity extends Activity implements OnClickListener 
 				// can't be a correct answer, so ignore it!
 			}
 			answer.setText("");
-			generateSummary();
-			if (noAnswered < noQuestions)
-				generateQuestion();
-			else
-				finish();
+			displaySummary();
 
+			if (noAnswered < noQuestions) {
+				generateQuestion();
+			} else {
+				answer.setText("");
+				displaySummary();
+
+				String multiSum = getIntent().getStringExtra("multiSummary");
+
+				Intent nextScreen = new Intent(getApplicationContext(),
+						QuizActivity.class);
+
+				if (multiSum != null && !"".equals(multiSum)) {
+					nextScreen.putExtra("multiSummary", multiSum);
+				}
+				
+				String result = getSummary() + " for the last math quiz.";
+				nextScreen.putExtra("mathSummary", result);
+
+				startActivity(nextScreen);
+			}
 		}
 	}
-
 }

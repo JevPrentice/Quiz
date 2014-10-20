@@ -23,7 +23,11 @@
 			android:text="@string/history" />
 	</LinearLayout>
 	<TextView 
-		android:id="@+id/overall_summary"
+		android:id="@+id/math_summary"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" />
+	<TextView 
+		android:id="@+id/history_summary"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content" />
 </LinearLayout>

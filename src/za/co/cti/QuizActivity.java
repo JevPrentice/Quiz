@@ -10,43 +10,74 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class QuizActivity 
-	extends Activity
-	implements OnClickListener
-{
+public class QuizActivity extends Activity implements OnClickListener {
 	private Button historyButton;
 	private Button mathsButton;
-	private TextView summary;
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+	private TextView mathSummary;
+	private TextView multiSummary;
 
-        historyButton = (Button) findViewById(R.id.history_button);
-        historyButton.setOnClickListener(this);
-        mathsButton = (Button) findViewById(R.id.maths_button);
-        mathsButton.setOnClickListener(this);
-        summary = (TextView) findViewById(R.id.overall_summary);
-   }
-    
-	public void onClick(View arg0)
-	{
-		
-		
-		if ( arg0 == historyButton ) {
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		historyButton = (Button) findViewById(R.id.history_button);
+		historyButton.setOnClickListener(this);
+		mathsButton = (Button) findViewById(R.id.maths_button);
+		mathsButton.setOnClickListener(this);
+		mathSummary = (TextView) findViewById(R.id.math_summary);
+		multiSummary = (TextView) findViewById(R.id.history_summary);
+
+		Intent i = getIntent();
+
+		String mathSum = i.getStringExtra("mathSummary");
+		String multiSum = i.getStringExtra("multiSummary");
+
+		if (mathSum != null && !"".equals(mathSum)) {
+			mathSummary.setText(mathSum);
+		}
+		if (multiSum != null && !"".equals(multiSum)) {
+			multiSummary.setText(multiSum);
+		}
+
+	}
+
+	public void onClick(View arg0) {
+
+		Class<?> c = null;
+		if (arg0 == historyButton) {
 			Log.i("QUIZ", "History selected");
-			Toast.makeText(getApplicationContext(), "History button pressed", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "History button pressed",
+					Toast.LENGTH_LONG).show();
+
+			c = MultiChoiceQuestionsActivity.class;
+
 		}
-		if ( arg0 == mathsButton ) {
+		if (arg0 == mathsButton) {
 			Log.i("QUIZ", "Maths selected");
-			Toast.makeText(getApplicationContext(), "Maths button pressed", Toast.LENGTH_LONG).show();
-			
-			Intent intent = new Intent(QuizActivity.this, MathsQuestionsActivity.class);
-			QuizActivity.this.startActivity(intent);
-			//finish();
-			
+			Toast.makeText(getApplicationContext(), "Maths button pressed",
+					Toast.LENGTH_LONG).show();
+
+			c = MathsQuestionsActivity.class;
+
 		}
 
+		if (c != null) {
+			Intent nextScreen = new Intent(getApplicationContext(), c);
+
+			Intent i = getIntent();
+			String mathSum = i.getStringExtra("mathSummary");
+			String multiSum = i.getStringExtra("multiSummary");
+
+			if (mathSum != null && !"".equals(mathSum)) {
+				nextScreen.putExtra("mathSummary", mathSum);
+			}
+			if (multiSum != null && !"".equals(multiSum)) {
+				nextScreen.putExtra("multiSummary", multiSum);
+			}
+
+			startActivity(nextScreen);
+		}
 	}
 }
