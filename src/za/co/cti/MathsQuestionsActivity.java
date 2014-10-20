@@ -103,11 +103,14 @@ public class MathsQuestionsActivity extends Activity implements OnClickListener 
 				answer.setText("");
 				displaySummary();
 
-				String multiSum = getIntent().getStringExtra("multiSummary");
-				String progSum = getIntent().getStringExtra("progSummary");
-
+				// Set the next activity as QuizActivity to return to the main
+				// menu
 				Intent nextScreen = new Intent(getApplicationContext(),
 						QuizActivity.class);
+
+				//Retrieve summaries and add them to next the intent
+				String multiSum = getIntent().getStringExtra("multiSummary");
+				String progSum = getIntent().getStringExtra("progSummary");
 
 				if (multiSum != null && !"".equals(multiSum)) {
 					nextScreen.putExtra("multiSummary", multiSum);

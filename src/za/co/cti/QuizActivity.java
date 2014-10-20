@@ -14,6 +14,8 @@ public class QuizActivity extends Activity implements OnClickListener {
 	private Button historyButton;
 	private Button mathsButton;
 	private Button programmingButton;
+
+	// TextViews for summaries
 	private TextView mathSummary;
 	private TextView multiSummary;
 	private TextView programmingSummary;
@@ -24,6 +26,7 @@ public class QuizActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		// Activate buttons
 		historyButton = (Button) findViewById(R.id.history_button);
 		historyButton.setOnClickListener(this);
 		mathsButton = (Button) findViewById(R.id.maths_button);
@@ -34,12 +37,15 @@ public class QuizActivity extends Activity implements OnClickListener {
 		multiSummary = (TextView) findViewById(R.id.history_summary);
 		programmingSummary = (TextView) findViewById(R.id.programming_summary);
 
+		// Get current intent
 		Intent i = getIntent();
 
+		// Get summary values from intent
 		String mathSum = i.getStringExtra("mathSummary");
 		String multiSum = i.getStringExtra("multiSummary");
 		String progSum = i.getStringExtra("progSummary");
 
+		// set the lables if values are present
 		if (mathSum != null && !"".equals(mathSum)) {
 			mathSummary.setText(mathSum);
 		}
@@ -54,12 +60,15 @@ public class QuizActivity extends Activity implements OnClickListener {
 
 	public void onClick(View arg0) {
 
+		// The class to be navigated to
 		Class<?> c = null;
+
 		if (arg0 == historyButton) {
 			Log.i("QUIZ", "History selected");
 			Toast.makeText(getApplicationContext(), "History button pressed",
 					Toast.LENGTH_LONG).show();
 
+			// Set var to the MultiChoiceActivity
 			c = MultiChoiceQuestionsActivity.class;
 
 		}
@@ -68,6 +77,7 @@ public class QuizActivity extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "Maths button pressed",
 					Toast.LENGTH_LONG).show();
 
+			// Set var to the MathsQuestionsActivity
 			c = MathsQuestionsActivity.class;
 
 		}
@@ -77,29 +87,32 @@ public class QuizActivity extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(),
 					"Programming button pressed", Toast.LENGTH_LONG).show();
 
+			// Set var to the ProgrammingMCActivity
 			c = ProgrammingMCActivity.class;
 
 		}
 
-		if (c != null) {
-			Intent nextScreen = new Intent(getApplicationContext(), c);
+		// Invoke the view that was selected
+		Intent nextScreen = new Intent(getApplicationContext(), c);
 
-			Intent i = getIntent();
-			String mathSum = i.getStringExtra("mathSummary");
-			String multiSum = i.getStringExtra("multiSummary");
-			String progSum = i.getStringExtra("progSummary");
+		// Keep last quiz results in memory by passing vars through to next
+		// activity
+		Intent i = getIntent();
+		String mathSum = i.getStringExtra("mathSummary");
+		String multiSum = i.getStringExtra("multiSummary");
+		String progSum = i.getStringExtra("progSummary");
 
-			if (mathSum != null && !"".equals(mathSum)) {
-				nextScreen.putExtra("mathSummary", mathSum);
-			}
-			if (multiSum != null && !"".equals(multiSum)) {
-				nextScreen.putExtra("multiSummary", multiSum);
-			}
-			if (progSum != null && !"".equals(progSum)) {
-				nextScreen.putExtra("progSummary", progSum);
-			}
-
-			startActivity(nextScreen);
+		if (mathSum != null && !"".equals(mathSum)) {
+			nextScreen.putExtra("mathSummary", mathSum);
 		}
+		if (multiSum != null && !"".equals(multiSum)) {
+			nextScreen.putExtra("multiSummary", multiSum);
+		}
+		if (progSum != null && !"".equals(progSum)) {
+			nextScreen.putExtra("progSummary", progSum);
+		}
+
+		// start the activity
+		startActivity(nextScreen);
 	}
 }

@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+//Quiz on programming theory
 public class ProgrammingMCActivity extends Activity implements OnClickListener {
 	private TextView question;
 	private TextView summary;
@@ -54,6 +55,8 @@ public class ProgrammingMCActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	// Creates a vector of multiple choice questions and populates it with
+	// programming theory questions
 	private void initialiseQuestions() {
 		questions = new Vector<MCQuestion>();
 		MCQuestion q1 = new MCQuestion(
@@ -110,8 +113,12 @@ public class ProgrammingMCActivity extends Activity implements OnClickListener {
 		displaySummary();
 		if (noAnswered == noQuestions) {
 			displaySummary();
+
+			// Set the next activity as QuizActivity to return to the main menu
 			Intent nextScreen = new Intent(getApplicationContext(),
 					QuizActivity.class);
+
+			// Make summary avaliable for the other activities
 			String s = getSummary() + " for the last programming quiz.";
 			nextScreen.putExtra("progSummary", s);
 
