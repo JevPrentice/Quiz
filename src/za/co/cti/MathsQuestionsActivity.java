@@ -104,6 +104,7 @@ public class MathsQuestionsActivity extends Activity implements OnClickListener 
 				displaySummary();
 
 				String multiSum = getIntent().getStringExtra("multiSummary");
+				String progSum = getIntent().getStringExtra("progSummary");
 
 				Intent nextScreen = new Intent(getApplicationContext(),
 						QuizActivity.class);
@@ -111,7 +112,10 @@ public class MathsQuestionsActivity extends Activity implements OnClickListener 
 				if (multiSum != null && !"".equals(multiSum)) {
 					nextScreen.putExtra("multiSummary", multiSum);
 				}
-				
+				if (progSum != null && !"".equals(progSum)) {
+					nextScreen.putExtra("progSummary", progSum);
+				}
+
 				String result = getSummary() + " for the last math quiz.";
 				nextScreen.putExtra("mathSummary", result);
 

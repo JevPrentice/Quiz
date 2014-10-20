@@ -21,6 +21,11 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:text="@string/history" />
+		<Button 
+			android:id="@+id/programming_button" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="@string/programming" />
 	</LinearLayout>
 	<TextView 
 		android:id="@+id/math_summary"
@@ -28,6 +33,10 @@
 		android:layout_height="wrap_content" />
 	<TextView 
 		android:id="@+id/history_summary"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" />
+	<TextView 
+		android:id="@+id/programming_summary"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content" />
 </LinearLayout>

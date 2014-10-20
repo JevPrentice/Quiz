@@ -13,8 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class MultiChoiceQuestionsActivity extends Activity implements
-		OnClickListener {
+public class ProgrammingMCActivity extends Activity implements OnClickListener {
 	private TextView question;
 	private TextView summary;
 	private Vector<MCQuestion> questions;
@@ -28,12 +27,12 @@ public class MultiChoiceQuestionsActivity extends Activity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.multichoice);
-		Log.i("MCQ", "MultiChoice starts");
+		setContentView(R.layout.programmingmc);
+		Log.i("PMQ", "Programming multiple choice starts");
 		opts = (RadioGroup) findViewById(R.id.opts);
 		Button sub = (Button) findViewById(R.id.submit);
 		question = (TextView) findViewById(R.id.question_text);
-		summary = (TextView) findViewById(R.id.multichoice_summary);
+		summary = (TextView) findViewById(R.id.programming_summary);
 		noCorrect = 0;
 		noAnswered = 0;
 		sub.setOnClickListener(this);
@@ -57,24 +56,40 @@ public class MultiChoiceQuestionsActivity extends Activity implements
 
 	private void initialiseQuestions() {
 		questions = new Vector<MCQuestion>();
-		MCQuestion q1 = new MCQuestion("Who conquered England in 1066?");
-		q1.addAnswer("Harold Godwinson", false);
-		q1.addAnswer("Edward the Confessor", false);
-		q1.addAnswer("William the Conqueror", true);
-		q1.addAnswer("Alfred the Great", false);
+		MCQuestion q1 = new MCQuestion(
+				"Select the best definition of an object");
+		q1.addAnswer("Converts source code to machine code before execution. ",
+				false);
+		q1.addAnswer(
+				"An entity having specific characteristics(variables) and behaviour(Methods)",
+				true);
+		q1.addAnswer(
+				"When a class acquires properties of another class (may add a few of its own).",
+				false);
+		q1.addAnswer(
+				"Two byte character code for multilingual characters. ASCII is a subset of Unicodes",
+				false);
 		questions.add(q1);
-		q1 = new MCQuestion("Who first climbed Mount Everest?");
-		q1.addAnswer("Edward Whymper", false);
-		q1.addAnswer("Edmund Hillary", true);
-		q1.addAnswer("Chris Bonnington", false);
+		q1 = new MCQuestion("Select the best definition for Encapsulation");
+		q1.addAnswer(
+				"A machine code program which can run on a specific platform(hardware/ software) only.",
+				false);
+		q1.addAnswer(
+				"Internet Applets are small programs that are embedded in web pages and are run on the viewers’ machine",
+				false);
+		q1.addAnswer("Binding and wrapping up of methods and data members",
+				true);
+		q1.addAnswer(
+				"Set of Java programs (interpreter compiler etc.) which converts source code to byte code.",
+				false);
 		questions.add(q1);
-		q1 = new MCQuestion("Who first reached the South Pole?");
-		q1.addAnswer("Captain Scott", false);
-		q1.addAnswer("Roald Amundsen", true);
-		q1.addAnswer("Edmund Hillary", false);
-		q1.addAnswer("Robert Peary", false);
+		q1 = new MCQuestion(
+				"Which of these keyword must be used to inherit a class");
+		q1.addAnswer("super", false);
+		q1.addAnswer("this", false);
+		q1.addAnswer("extent", false);
+		q1.addAnswer("extends", true);
 		questions.add(q1);
-		// more questions could be added
 	}
 
 	private String getSummary() {
@@ -97,21 +112,20 @@ public class MultiChoiceQuestionsActivity extends Activity implements
 			displaySummary();
 			Intent nextScreen = new Intent(getApplicationContext(),
 					QuizActivity.class);
-			String s = getSummary() + " for the last history quiz.";
-			nextScreen.putExtra("multiSummary", s);
+			String s = getSummary() + " for the last programming quiz.";
+			nextScreen.putExtra("progSummary", s);
 
 			String mathSum = getIntent().getStringExtra("mathSummary");
-			String progSum = getIntent().getStringExtra("progSummary");
-
+			String multiSum = getIntent().getStringExtra("multiSummary");
 			if (mathSum != null && !"".equals(mathSum)) {
 				nextScreen.putExtra("mathSummary", mathSum);
 			}
-			if (progSum != null && !"".equals(progSum)) {
-				nextScreen.putExtra("progSummary", progSum);
+			if (multiSum != null && !"".equals(multiSum)) {
+				nextScreen.putExtra("multiSummary", multiSum);
 			}
+
 			startActivity(nextScreen);
 
-			// finish();
 		} else {
 			generateQuestion(noAnswered);
 		}
